@@ -19,5 +19,5 @@ export const Title = styled.Text`
   margin-left: ${RFValue(12)}px;
   margin-bottom: ${RFValue(6)}px;
   font-family: ${({theme}) => theme.fonts.regular};
-  font-size: ${RFValue(18)}px;;
+  font-size: ${RFValue(18)}px;
 `;
