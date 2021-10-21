@@ -39,6 +39,7 @@ const AuthProvider: React.FC = ({ children }) => {
         '@e-provement:token',
         '@e-provement:user',
       ]);
+      console.tron.log(token[1], user[1])
       if (token[1] && user[1]) {
         setData({ token: token[1], user: JSON.parse(user[1] || '') });
       }

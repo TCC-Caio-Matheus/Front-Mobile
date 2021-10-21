@@ -10,7 +10,7 @@ if (__DEV__) {
   const [scriptHostname = ''] = scriptURL.split('://')[1].split(':');
 
   const tron = Reactotron.configure({
-    name: 'Unafood',
+    name: 'E-proviment',
     host: scriptHostname,
   })
     .useReactNative()

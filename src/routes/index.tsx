@@ -1,12 +1,12 @@
 import React from 'react';
 // import { ActivityIndicator, View } from 'react-native';
 
-// import AppRoutes from './tab.routes';
-// import { useAuth } from '../hooks/AuthProvider';
+import { useAuth } from '../hooks/auth';
 import AuthRoutes from './auth.routes';
+import AppRoutes from './app.routes';
 
 const Routes: React.FC = () => {
-  // const { user, loading } = useAuth();
+  const { user, loading } = useAuth();
 
   // if (loading) {
   //   return (
@@ -16,9 +16,9 @@ const Routes: React.FC = () => {
   //   );
   // }
 
-  // if (user) {
-  //   return <AppRoutes />;
-  // }
+  if (user) {
+    return <AppRoutes />;
+  }
 
   return <AuthRoutes />;
 };
