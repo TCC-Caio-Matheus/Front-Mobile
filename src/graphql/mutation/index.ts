@@ -10,3 +10,11 @@ export const AUTHENTICATE = gql`
     }
   }
 `;
+
+export const REGISTER = gql`
+  mutation ($input: UsersPermissionsRegisterInput!) {
+    register(input: $input) {
+      jwt
+    }
+  }
+`;

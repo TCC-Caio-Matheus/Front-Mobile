@@ -4,8 +4,9 @@ import { Container, DefaultInput, Title } from "./styles";
 
 interface Props {
   text: string;
+  value: string;
   placeholder?: string;
-  onChange?: (value: string) => void;
+  onChangeText?: (value: string) => void;
   keyboardType?: "default" | "numeric" | "email-address";
   secureTextEntry?: boolean;
 }
@@ -13,9 +14,10 @@ interface Props {
 const Input: React.FC<Props> = ({
   text,
   placeholder,
-  onChange,
-  keyboardType,
+  onChangeText,
+  keyboardType = 'default',
   secureTextEntry = false,
+  value
 }) => {
   return (
     <Container>
@@ -24,7 +26,8 @@ const Input: React.FC<Props> = ({
         secureTextEntry={secureTextEntry}
         placeholder={placeholder}
         keyboardType={keyboardType}
-        onChangeText={onChange}
+        onChangeText={onChangeText}
+        value={value}
       ></DefaultInput>
     </Container>
   );

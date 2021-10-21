@@ -32,12 +32,12 @@ const Login: React.FC = ({ navigation }) => {
     <Container>
       <ImageView></ImageView>
       <InputView>
-        <Input text="Email" keyboardType="default" onChange={(value) => setEmail(value)}/>
-        <Input text="Senha" keyboardType="default" secureTextEntry onChange={(value) => setpassword(value)} />
+        <Input text="Email" keyboardType="default" value={email} onChangeText={(value) => setEmail(value)}/>
+        <Input text="Senha" keyboardType="default" secureTextEntry  value={password} onChangeText={(value) => setpassword(value)} />
       </InputView>
       <ButtonsView>
         <Button onPress={handleSignIn} outline={false} text="ENTRAR"></Button>
-        <RegisteLinkView>
+        <RegisteLinkView onPress={() => navigation.navigate('SignUp')}>
           <RegisterLink>Não tem uma conta ? </RegisterLink>
           <AccentLink>Registrar</AccentLink>
         </RegisteLinkView>
