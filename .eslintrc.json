@@ -1,0 +1,73 @@
+{
+    "env": {
+        "es2021": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended"
+    ],
+    "globals": {
+      "__DEV__": "readonly",
+      "Atomics": "readonly",
+      "SharedArrayBuffer": "readonly"
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint",
+        "react-hooks",
+        "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": "error",
+      "no-underscore-dangle": "off",
+      "react-hooks/rules-of-hooks": "error",
+      "react/jsx-filename-extension": [
+        1,
+        {
+          "extensions": [
+            ".tsx"
+          ]
+        }
+      ],
+      "import/prefer-default-export": "off",
+      "react/prop-types": "off",
+      "no-unused-expressions": "off",
+      "react/jsx-props-no-spreading": "off",
+      "@typescript-eslint/camelcase": "off",
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "import/extensions": [
+        "error",
+        "ignorePackages",
+        {
+          "ts": "never",
+          "tsx": "never",
+          "js": "never"
+        }
+      ],
+      "no-use-before-define": "off",
+      "camelcase": "off",
+      "@typescript-eslint/no-empty-function": "off",
+      "global-require": 0,
+      "react-hooks/exhaustive-deps": "off",
+      "import/no-extraneous-dependencies": "off"
+    },
+    "settings": {
+      "import/resolver": {
+        "typescript": {},
+        "babel-plugin-root-import": {
+          "rootPathPrefix": "~",
+          "rootPathSuffix": "src"
+        }
+      }
+    }
+}

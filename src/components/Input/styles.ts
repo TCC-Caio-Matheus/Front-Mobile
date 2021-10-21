@@ -1,5 +1,5 @@
-import styled from "styled-components/native";
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import styled from 'styled-components/native';
+import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 
 export const Container = styled.View`
   width: 100%;
@@ -18,6 +18,6 @@ export const DefaultInput = styled.TextInput`
 export const Title = styled.Text`
   margin-left: ${RFValue(12)}px;
   margin-bottom: ${RFValue(6)}px;
-  font-family: ${({theme}) => theme.fonts.regular};
+  font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(18)}px;
 `;

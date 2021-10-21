@@ -7,7 +7,8 @@ import React, {
 } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useApolloClient } from '@apollo/client';
-import { AUTHENTICATE } from '../graphql/mutation'
+import { AUTHENTICATE } from '../graphql/mutation';
+
 interface AuthState {
   token: string | null;
   user: object;
@@ -39,7 +40,7 @@ const AuthProvider: React.FC = ({ children }) => {
         '@e-provement:token',
         '@e-provement:user',
       ]);
-      console.tron.log(token[1], user[1])
+
       if (token[1] && user[1]) {
         setData({ token: token[1], user: JSON.parse(user[1] || '') });
       }

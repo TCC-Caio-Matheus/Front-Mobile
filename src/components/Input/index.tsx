@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 
-import { Container, DefaultInput, Title } from "./styles";
+import { Container, DefaultInput, Title } from './styles';
 
 interface Props {
   text: string;
   value: string;
   placeholder?: string;
   onChangeText?: (value: string) => void;
-  keyboardType?: "default" | "numeric" | "email-address";
+  keyboardType?: 'default' | 'numeric' | 'email-address';
   secureTextEntry?: boolean;
 }
 
@@ -17,7 +17,7 @@ const Input: React.FC<Props> = ({
   onChangeText,
   keyboardType = 'default',
   secureTextEntry = false,
-  value
+  value,
 }) => {
   return (
     <Container>
@@ -28,7 +28,7 @@ const Input: React.FC<Props> = ({
         keyboardType={keyboardType}
         onChangeText={onChangeText}
         value={value}
-      ></DefaultInput>
+      />
     </Container>
   );
 };

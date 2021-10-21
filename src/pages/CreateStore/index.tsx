@@ -1,24 +1,13 @@
-import React, { useCallback, useState } from "react";
-import { TouchableOpacity } from "react-native";
-import Button from "../../components/Button";
-import Input from "../../components/Input";
-import { SelectButton } from "../../components";
-import { CREATE_STORE } from '../../graphql/mutation'
-
-import {
-  Container,
-  InputView,
-  ForgotPassword,
-  ForgotPasswordButton,
-  ButtonsView,
-  RegisterLink,
-  AccentLink,
-  RegisteLinkView,
-  ImageView,
-} from "./styles";
+import React, { useCallback } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useApolloClient } from '@apollo/client';
+import Button from '../../components/Button';
+import Input from '../../components/Input';
+import { SelectButton } from '../../components';
+import { CREATE_STORE } from '../../graphql/mutation';
+
+import { Container, InputView, ButtonsView, ImageView } from './styles';
 import { useAuth } from '../../hooks/auth';
 
 const SCHEMA = Yup.object().shape({
@@ -30,30 +19,30 @@ const CreateStore: React.FC = ({ navigation }) => {
   const client = useApolloClient();
   const { user } = useAuth();
 
-  const handleCreate = useCallback(async (dataValues) => {
-    try {
-      const {
-        name,
-        segment,
-      } = dataValues;
+  const handleCreate = useCallback(
+    async dataValues => {
+      try {
+        const { name, segment } = dataValues;
 
-      await client.mutate({
-        mutation: CREATE_STORE,
-        variables: {
-          input: {
-            data: {
-              name,
-              type: segment,
-              user: user.id
-            }
+        await client.mutate({
+          mutation: CREATE_STORE,
+          variables: {
+            input: {
+              data: {
+                name,
+                type: segment,
+                user: user.id,
+              },
+            },
           },
-        },
-      });
-      // navigation.navigate('Login')
-    } catch (error) {
-      console.log(error)
-    }
-  }, [])
+        });
+        navigation.navigate('Home');
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [user],
+  );
 
   const formik = useFormik({
     initialValues: {
@@ -65,13 +54,12 @@ const CreateStore: React.FC = ({ navigation }) => {
     onSubmit: handleCreate,
   });
 
-
   return (
     <Container>
-      <ImageView></ImageView>
+      <ImageView />
       <InputView>
-        <Input 
-          text="Nome da loja" 
+        <Input
+          text="Nome da loja"
           value={formik.values.name}
           onChangeText={formik.handleChange('name')}
         />
@@ -85,23 +73,22 @@ const CreateStore: React.FC = ({ navigation }) => {
           onValueChange={formik.handleChange('segment')}
           value={formik.values.segment}
           items={[
-            { "value": "JEWELERY", "label": "Jóias" },
-            { "value": "PETSHOP", "label": "Petshop" },
-            { "value": "FOOD", "label": "Alimentação" },
-            { "value": "FASHION", "label": "Moda" },
-            { "value": "AUTOMOTIVE", "label": "Automotivo" },
-            { "value": "FURNITURE", "label": "Móveis" },
-            { "value": "PERFUMERY", "label": "Perfumaria" },
-            { "value": "TOYS", "label": "Brinquedos" },
-            { "value": "COURSES", "label": "Cursos" },
-            { "value": "DIGITAL_PRODUCTS", "label": "Produtos Digitais" },
-            { "value": "OTHERS", "label": "Outros" }
-          ]
-          }
+            { value: 'JEWELERY', label: 'Jóias' },
+            { value: 'PETSHOP', label: 'Petshop' },
+            { value: 'FOOD', label: 'Alimentação' },
+            { value: 'FASHION', label: 'Moda' },
+            { value: 'AUTOMOTIVE', label: 'Automotivo' },
+            { value: 'FURNITURE', label: 'Móveis' },
+            { value: 'PERFUMERY', label: 'Perfumaria' },
+            { value: 'TOYS', label: 'Brinquedos' },
+            { value: 'COURSES', label: 'Cursos' },
+            { value: 'DIGITAL_PRODUCTS', label: 'Produtos Digitais' },
+            { value: 'OTHERS', label: 'Outros' },
+          ]}
         />
       </InputView>
       <ButtonsView>
-        <Button onPress={formik.submitForm} outline={false} text="Cadastrar"></Button>
+        <Button onPress={formik.submitForm} outline={false} text="Cadastrar" />
       </ButtonsView>
     </Container>
   );

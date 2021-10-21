@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import styled from 'styled-components/native';
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 
 export const Container = styled.View`
   border-radius: 10px;
@@ -12,7 +12,7 @@ export const Container = styled.View`
 
 export const LabelText = styled.Text`
   color: black;
-  font-family: ${({theme}) => theme.fonts.regular};
+  font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(18)}px;
   margin: 12px 5px;
   text-align: left;
