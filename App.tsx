@@ -1,14 +1,16 @@
 import React from "react";
-import Home from "./src/pages/Home";
 import { ThemeProvider } from "styled-components/native";
 import AppLoading from "expo-app-loading";
-import NavBar from "./src/components/NavBar";
 import {
   useFonts,
   Montserrat_500Medium,
   Montserrat_700Bold,
   Montserrat_600SemiBold,
 } from "@expo-google-fonts/montserrat";
+import AppRoute from './src';
+import { ApolloProvider } from '@apollo/client';
+import client from './src/services/graphqlClient';
+
 import theme from "./src/global/styles/theme";
 
 export default function App() {
@@ -23,8 +25,10 @@ export default function App() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <Home />
-    </ThemeProvider>
+    <ApolloProvider client={client}>
+      <ThemeProvider theme={theme}>
+        <AppRoute />
+      </ThemeProvider>
+    </ApolloProvider>
   );
 }

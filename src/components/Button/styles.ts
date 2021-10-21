@@ -30,5 +30,5 @@ export const ButtonText = styled.Text<ButtonProps>`
   font-family: ${({ theme }) => theme.fonts.regular};
   color: ${(props) =>
     props.outline ? props.theme.colors.secondary : props.theme.colors.white};
-  font-size: ${RFValue(18)}px;
+  font-size: ${RFValue(15)}px;
 `;

@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.View`
   flex: 1;
   align-items: center;
   justify-content: space-between;
@@ -39,13 +39,13 @@ export const ButtonsView = styled.View`
 
 export const RegisterLink = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: ${RFValue(18)}px;
+  font-size: ${RFValue(13)}px;
   color: ${({ theme }) => theme.colors.secondary};
 `;
 
 export const AccentLink = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: ${RFValue(18)}px;
+  font-size: ${RFValue(13)}px;
   color: ${({ theme }) => theme.colors.primary};
 `;
 
