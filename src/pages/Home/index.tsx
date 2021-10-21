@@ -5,14 +5,7 @@ import Input from "../../components/Input";
 
 import {
   Container,
-  InputView,
-  ForgotPassword,
-  ForgotPasswordButton,
   ButtonsView,
-  RegisterLink,
-  AccentLink,
-  RegisteLinkView,
-  ImageView,
 } from "./styles";
 import { useAuth } from '../../hooks/auth';
 
@@ -22,7 +15,7 @@ const Login: React.FC = ({ navigation }) => {
   return (
     <Container>
       <ButtonsView>
-        <Button onPress={signOut} outline={false} text="ENTRAR"></Button>
+        <Button onPress={()=> navigation.navigate('CreateStore')} outline={false} icon='store' text="Cadastrar Loja"></Button>
       </ButtonsView>
     </Container>
   );
