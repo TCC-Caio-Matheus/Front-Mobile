@@ -7,7 +7,7 @@ interface Props {
   placeholder?: string;
   onChange?: (value: string) => void;
   keyboardType?: "default" | "numeric" | "email-address";
-  password?: boolean;
+  secureTextEntry?: boolean;
 }
 
 const Input: React.FC<Props> = ({
@@ -15,15 +15,16 @@ const Input: React.FC<Props> = ({
   placeholder,
   onChange,
   keyboardType,
-  password,
+  secureTextEntry = false,
 }) => {
   return (
     <Container>
       <Title>{text}</Title>
       <DefaultInput
-        secureTextEntry={password}
+        secureTextEntry={secureTextEntry}
         placeholder={placeholder}
         keyboardType={keyboardType}
+        onChangeText={onChange}
       ></DefaultInput>
     </Container>
   );

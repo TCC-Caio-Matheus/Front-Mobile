@@ -10,7 +10,8 @@ import {
 import AppRoute from './src';
 import { ApolloProvider } from '@apollo/client';
 import client from './src/services/graphqlClient';
-
+import AppProvider from './src/hooks';
+import './src/config/Reactotron';
 import theme from "./src/global/styles/theme";
 
 export default function App() {
@@ -27,7 +28,9 @@ export default function App() {
   return (
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>
-        <AppRoute />
+        <AppProvider>
+          <AppRoute />
+        </AppProvider>
       </ThemeProvider>
     </ApolloProvider>
   );
