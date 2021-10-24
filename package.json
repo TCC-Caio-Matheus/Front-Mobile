@@ -36,8 +36,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
-    "@expo/vector-icons": "^12.0.5",
-    "@types/expo__vector-icons": "^10.0.0",
     "@types/react": "~16.9.35",
     "@types/react-native": "~0.63.2",
     "@typescript-eslint/eslint-plugin": "^4.18.0",

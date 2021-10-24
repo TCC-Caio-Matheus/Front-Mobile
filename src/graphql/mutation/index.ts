@@ -4,7 +4,7 @@ export const AUTHENTICATE = gql`
   mutation ($input: UsersPermissionsLoginInput!) {
     login(input: $input) {
       jwt
-      user{
+      user {
         id
         username
       }
