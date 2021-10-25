@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useApolloClient } from '@apollo/client';
 import Button from '../../components/Button';
-import { CardSelect, Loading } from '../../components';
+import { CardSelect, Loading, NavBar } from '../../components';
 
 import { useAuth } from '../../hooks/auth';
 import { QUIZZES } from '../../graphql/query';
@@ -19,11 +19,9 @@ const Login: React.FC = ({ navigation }) => {
       const { data } = await client.query({
         query: QUIZZES,
         variables: {
-          input: {
-            where: {
-              stores: {
-                id: 1,
-              },
+          where: {
+            stores: {
+              id: 1,
             },
           },
         },
@@ -43,6 +41,7 @@ const Login: React.FC = ({ navigation }) => {
 
   return (
     <Container>
+      <NavBar displayDrawer pageTitle="Informe de rendimentos" />
       {loading && <Loading />}
 
       {!loading && quizzes.length === 0 && (
@@ -69,7 +68,7 @@ const Login: React.FC = ({ navigation }) => {
               icon={<Icon name="document-text-outline" />}
               title={item.name}
               subTitle={`${item.questions.length} perguntas`}
-              onPress={() => {}}
+              onPress={() => navigation.navigate('ListQuestions', { id: 1 })}
             />
           ))}
         </Content>

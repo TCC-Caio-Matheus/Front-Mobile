@@ -32,7 +32,7 @@ const CardSelect: React.FC<CardDropProps> = ({
 
         <ContainerCard>
           <TitleHeader>{title}</TitleHeader>
-          <SubTitleHeader>{subTitle}</SubTitleHeader>
+          {subTitle && <SubTitleHeader>{subTitle}</SubTitleHeader>}
         </ContainerCard>
 
         <ContainerArrow>
