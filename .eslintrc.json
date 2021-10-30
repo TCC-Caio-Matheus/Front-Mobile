@@ -59,7 +59,8 @@
       "@typescript-eslint/no-empty-function": "off",
       "global-require": 0,
       "react-hooks/exhaustive-deps": "off",
-      "import/no-extraneous-dependencies": "off"
+      "import/no-extraneous-dependencies": "off",
+      "react/require-default-props": "off"
     },
     "settings": {
       "import/resolver": {

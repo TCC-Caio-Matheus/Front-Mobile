@@ -12,10 +12,19 @@ export const Container = styled.View`
 export const Content = styled.ScrollView.attrs({
   contentContainerStyle: {
     paddingBottom: 20,
+    flexGrow: 1,
   },
+  showsVerticalScrollIndicator: false,
 })`
-  padding: 0px 20px;
-  width: 100%;
+  padding: 20px;
+`;
+
+export const TitleQuestion = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.semiBold};
+  font-size: ${RFValue(14)}px;
+  color: ${({ theme }) => theme.colors.secondary};
+  align-self: flex-start;
+  margin: 10px 0px;
 `;
 
 export const Title = styled.Text`

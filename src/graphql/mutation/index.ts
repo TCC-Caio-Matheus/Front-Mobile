@@ -29,3 +29,13 @@ export const CREATE_STORE = gql`
     }
   }
 `;
+
+export const CREATE_ANSWER = gql`
+  mutation ($input: createAnswerInput) {
+    createAnswer(input: $input) {
+      answer {
+        id
+      }
+    }
+  }
+`;

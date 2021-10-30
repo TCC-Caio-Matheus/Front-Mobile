@@ -51,10 +51,11 @@ const ListQuestions: React.FC = () => {
     try {
       setLoading(true);
       const { data } = await client.query({
+        fetchPolicy: 'no-cache',
         query: ANSWERS,
         variables: {
           where: {
-            question: {
+            quiz: {
               id,
             },
           },
@@ -81,7 +82,7 @@ const ListQuestions: React.FC = () => {
         answer => answer.question.id === item.id,
       );
       if (isAnswer) {
-        navigation.navigate('ListQuestions');
+        navigation.navigate('ListQuestions', { id: 1 });
       } else {
         navigation.navigate('AnswerQuestion', { id: 1 });
       }

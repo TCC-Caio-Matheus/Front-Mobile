@@ -40,6 +40,10 @@ export const QUESTION = gql`
     question(id: $id) {
       id
       title
+      type
+      quiz {
+        name
+      }
       question_options {
         id
         description

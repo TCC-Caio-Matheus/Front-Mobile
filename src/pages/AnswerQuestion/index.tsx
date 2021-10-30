@@ -2,10 +2,24 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useApolloClient } from '@apollo/client';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import find from 'lodash/find';
-import { CardSelect, Loading, NavBar } from '../../components';
+import {
+  CardSelect,
+  Loading,
+  NavBar,
+  SingleQuestion,
+  Button,
+} from '../../components';
 import { useAuth } from '../../hooks/auth';
 import { QUESTION } from '../../graphql/query';
-import { Container, Circle, Icon, Content, Title } from './styles';
+import { CREATE_ANSWER } from '../../graphql/mutation';
+import {
+  Container,
+  Circle,
+  Icon,
+  Content,
+  Title,
+  TitleQuestion,
+} from './styles';
 
 type ParamList = {
   ListQuestion: {
@@ -15,10 +29,12 @@ type ParamList = {
 
 const ListQuestions: React.FC = () => {
   const { signOut, user } = useAuth();
-  const client = useApolloClient();
-  const [answers, setAnswers] = useState([]);
-  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
+  const client = useApolloClient();
+  const [loading, setLoading] = useState(false);
+  const [loadingAnswer, setLoadingAnswer] = useState(false);
+  const [question, setQuestion] = useState(null);
+  const [answer, setAnswer] = useState(null);
 
   const {
     params: { id },
@@ -34,7 +50,7 @@ const ListQuestions: React.FC = () => {
         },
       });
 
-      setAnswers(data.question);
+      setQuestion(data.question);
     } catch (error) {
       console.log(error);
     } finally {
@@ -46,20 +62,27 @@ const ListQuestions: React.FC = () => {
     getAnswer();
   }, [id]);
 
-  const handleNavigation = useCallback(
-    item => {
-      const isAnswer = !!find(
-        answers,
-        answer => answer.question.id === item.id,
-      );
-      if (isAnswer) {
-        navigation.navigate('ListQuestions');
-      } else {
-        navigation.navigate('ListQuestions');
-      }
-    },
-    [answers],
-  );
+  const handleAnswer = useCallback(async () => {
+    try {
+      setLoadingAnswer(true);
+      await client.mutate({
+        mutation: CREATE_ANSWER,
+        variables: {
+          input: {
+            data: {
+              store: 1,
+              question_options: [answer],
+              question: question?.id,
+            },
+          },
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingAnswer(false);
+    }
+  }, [question]);
 
   return (
     <Container>
@@ -68,7 +91,23 @@ const ListQuestions: React.FC = () => {
 
       {!loading && (
         <Content>
-          <Title>AnswerQuestion</Title>
+          {!!question && (
+            <>
+              <TitleQuestion>{question?.quiz?.name}</TitleQuestion>
+              <Title>{question?.title}</Title>
+              <SingleQuestion
+                options={question.question_options}
+                setAnswer={setAnswer}
+              />
+
+              <Button
+                onPress={handleAnswer}
+                outline={false}
+                text="Responder"
+                loading={loadingAnswer}
+              />
+            </>
+          )}
         </Content>
       )}
     </Container>
