@@ -1,6 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useApolloClient } from '@apollo/client';
-import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
+import {
+  useNavigation,
+  useRoute,
+  RouteProp,
+  useFocusEffect,
+} from '@react-navigation/native';
 import find from 'lodash/find';
 import { CardSelect, Loading, NavBar } from '../../components';
 import { useAuth } from '../../hooks/auth';
@@ -30,6 +35,7 @@ const ListQuestions: React.FC = () => {
       setLoading(true);
       const { data } = await client.query({
         query: QUESTIONS,
+        fetchPolicy: 'no-cache',
         variables: {
           where: {
             quiz: {
@@ -70,10 +76,12 @@ const ListQuestions: React.FC = () => {
     }
   }, [user, id]);
 
-  useEffect(() => {
+  const getList = useCallback(() => {
     getQuestions();
     getAnswers();
   }, [id]);
+
+  useFocusEffect(getList);
 
   const handleNavigation = useCallback(
     item => {
@@ -82,9 +90,9 @@ const ListQuestions: React.FC = () => {
         answer => answer.question.id === item.id,
       );
       if (isAnswer) {
-        navigation.navigate('ListQuestions', { id: 1 });
+        navigation.navigate('Evaluetion', { id: item.id });
       } else {
-        navigation.navigate('AnswerQuestion', { id: 1 });
+        navigation.navigate('AnswerQuestion', { id: item.id, type: item.type });
       }
     },
     [answers],
@@ -104,7 +112,7 @@ const ListQuestions: React.FC = () => {
               icon={
                 <Circle
                   check={
-                    !!find(answers, answer => answer.question.id === item.id)
+                    !!find(answers, answer => answer?.question?.id === item.id)
                   }
                 >
                   <Icon name="check" check />

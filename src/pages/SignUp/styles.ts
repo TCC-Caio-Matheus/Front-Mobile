@@ -59,5 +59,13 @@ export const RegisteLinkView = styled.TouchableOpacity`
 
 export const ImageView = styled.View`
   width: 100%;
-  height: ${RFPercentage(30)}px;
+  height: ${RFPercentage(20)}px;
+`;
+
+export const Logo = styled.Image.attrs({
+  resizeMode: 'contain',
+})`
+  width: 100%;
+  height: 100%;
+  margin-top: 50px;
 `;

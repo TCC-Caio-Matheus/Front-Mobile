@@ -8,6 +8,7 @@ import {
   NavBar,
   SingleQuestion,
   Button,
+  MultipleQuestion,
 } from '../../components';
 import { useAuth } from '../../hooks/auth';
 import { QUESTION } from '../../graphql/query';
@@ -24,6 +25,7 @@ import {
 type ParamList = {
   ListQuestion: {
     id: number;
+    type: string;
   };
 };
 
@@ -34,10 +36,10 @@ const ListQuestions: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [loadingAnswer, setLoadingAnswer] = useState(false);
   const [question, setQuestion] = useState(null);
-  const [answer, setAnswer] = useState(null);
+  const [answer, setAnswer] = useState([]);
 
   const {
-    params: { id },
+    params: { id, type },
   } = useRoute<RouteProp<ParamList, 'ListQuestion'>>();
 
   const getAnswer = useCallback(async () => {
@@ -45,6 +47,7 @@ const ListQuestions: React.FC = () => {
       setLoading(true);
       const { data } = await client.query({
         query: QUESTION,
+        fetchPolicy: 'no-cache',
         variables: {
           id,
         },
@@ -71,18 +74,20 @@ const ListQuestions: React.FC = () => {
           input: {
             data: {
               store: 1,
-              question_options: [answer],
+              question_options: answer,
               question: question?.id,
+              quiz: question?.quiz.id,
             },
           },
         },
       });
+      navigation.goBack();
     } catch (error) {
       console.log(error);
     } finally {
       setLoadingAnswer(false);
     }
-  }, [question]);
+  }, [question, answer]);
 
   return (
     <Container>
@@ -95,10 +100,22 @@ const ListQuestions: React.FC = () => {
             <>
               <TitleQuestion>{question?.quiz?.name}</TitleQuestion>
               <Title>{question?.title}</Title>
-              <SingleQuestion
-                options={question.question_options}
-                setAnswer={setAnswer}
-              />
+
+              {type === 'SINGLE_CHOICE' && (
+                <SingleQuestion
+                  options={question.question_options}
+                  setAnswer={setAnswer}
+                  answer={answer}
+                />
+              )}
+
+              {type === 'MULTIPLE_CHOICE' && (
+                <MultipleQuestion
+                  options={question.question_options}
+                  setAnswer={setAnswer}
+                  answer={answer}
+                />
+              )}
 
               <Button
                 onPress={handleAnswer}

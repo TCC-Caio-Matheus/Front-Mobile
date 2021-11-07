@@ -1,27 +1,28 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import find from 'lodash/find';
-import { Container, Option, Touchable, Icon, TitleQuestion } from './styles';
-import Images from '../../../assets';
+import {
+  Container,
+  Option,
+  Touchable,
+  Icon,
+  TitleQuestion,
+  Circle,
+} from './styles';
 
-interface SingleQuestionProps {
+interface MultipleQuestionProps {
   options: any[];
   setAnswer: any;
   answer: any;
 }
-const IMAGE = {
-  Não: Images.DESLIKE,
-  Sim: Images.LIKE,
-  Talvez: Images.LIKE_AND_DESLIKE,
-};
-const SingleQuestion: React.FC<SingleQuestionProps> = ({
+const MultipleQuestion: React.FC<MultipleQuestionProps> = ({
   options = [],
   setAnswer,
   answer,
 }) => {
   const addOption = useCallback(
     item => {
-      setAnswer([item]);
+      setAnswer(prevState => [...prevState, item]);
     },
     [answer],
   );
@@ -43,9 +44,11 @@ const SingleQuestion: React.FC<SingleQuestionProps> = ({
               : addOption(item.id);
           }}
         >
-          <Option selected={find(answer, i => i === item.id)}>
-            <Icon source={IMAGE[item.description]} />
+          <Option>
             <TitleQuestion>{item.description}</TitleQuestion>
+            <Circle check={find(answer, i => i === item.id)}>
+              <Icon name="check" check={find(answer, i => i === item.id)} />
+            </Circle>
           </Option>
         </Touchable>
       ))}
@@ -53,4 +56,4 @@ const SingleQuestion: React.FC<SingleQuestionProps> = ({
   );
 };
 
-export default SingleQuestion;
+export default MultipleQuestion;

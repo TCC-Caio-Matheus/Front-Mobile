@@ -5,6 +5,7 @@ import { useApolloClient } from '@apollo/client';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import { REGISTER } from '../../graphql/mutation';
+import Image from '../../../assets';
 
 import {
   Container,
@@ -14,6 +15,7 @@ import {
   AccentLink,
   RegisteLinkView,
   ImageView,
+  Logo,
 } from './styles';
 
 const SCHEMA = Yup.object().shape({
@@ -62,26 +64,32 @@ const SignUp: React.FC = ({ navigation }) => {
 
   return (
     <Container>
-      <ImageView />
+      <ImageView>
+        <Logo source={Image.LOGO} />
+      </ImageView>
       <InputView>
         <Input
           text="Username"
+          placeholder="Digite um username"
           value={formik.values.username}
           onChangeText={formik.handleChange('username')}
         />
         <Input
           text="Email"
+          placeholder="Digite o email"
           value={formik.values.email}
           onChangeText={formik.handleChange('email')}
         />
         <Input
           text="Senha"
+          placeholder="Digite a senha"
           value={formik.values.password}
           onChangeText={formik.handleChange('password')}
           secureTextEntry
         />
         <Input
           text="Confirmar Senha"
+          placeholder="Digite a senha"
           value={formik.values.passwordConfirmation}
           onChangeText={formik.handleChange('passwordConfirmation')}
           secureTextEntry

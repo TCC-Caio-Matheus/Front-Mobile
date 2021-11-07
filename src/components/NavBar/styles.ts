@@ -24,8 +24,9 @@ export const CenterView = styled.View`
 `;
 
 export const PageTitle = styled.Text`
-  font-size: ${RFValue(15)}px;
+  font-size: ${RFValue(14)}px;
   color: ${({ theme }) => theme.colors.primary};
+  font-family: ${({ theme }) => theme.fonts.bold};
 `;
 
 export const RighTView = styled.TouchableOpacity`

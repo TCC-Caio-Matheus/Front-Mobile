@@ -23,7 +23,7 @@ interface DrawerProps {
 const Drawer: React.FC<DrawerProps> = ({ isVisible, handleModal }) => {
   const navigation = useNavigation();
 
-  const { signOut } = useAuth();
+  const { signOut, store } = useAuth();
 
   const handleNavigation = useCallback(
     (screen: string) => {
@@ -52,14 +52,8 @@ const Drawer: React.FC<DrawerProps> = ({ isVisible, handleModal }) => {
         <ContainerScrollView>
           <TouchableWithoutFeedback>
             <ContainerFields>
-              <ButtonOption onPress={() => handleNavigation('Paycheck')}>
-                <ButtonText>Contra-cheque</ButtonText>
-              </ButtonOption>
-              <ButtonOption onPress={() => handleNavigation('Point')}>
-                <ButtonText>Ponto</ButtonText>
-              </ButtonOption>
-              <ButtonOption onPress={() => handleNavigation('Point')}>
-                <ButtonText>Banco de Horas</ButtonText>
+              <ButtonOption onPress={() => handleNavigation('Home')}>
+                <ButtonText>{store?.name}</ButtonText>
               </ButtonOption>
 
               <ButtonOption onPress={signOut}>

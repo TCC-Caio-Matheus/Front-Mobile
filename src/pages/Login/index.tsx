@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-
+import Image from '../../../assets';
 import {
   Container,
   InputView,
@@ -13,6 +13,7 @@ import {
   AccentLink,
   RegisteLinkView,
   ImageView,
+  Logo,
 } from './styles';
 import { useAuth } from '../../hooks/auth';
 
@@ -30,16 +31,20 @@ const Login: React.FC = ({ navigation }) => {
 
   return (
     <Container>
-      <ImageView />
+      <ImageView>
+        <Logo source={Image.LOGO} />
+      </ImageView>
       <InputView>
         <Input
           text="Email"
+          placeholder="Digite o email"
           keyboardType="default"
           value={email}
           onChangeText={value => setEmail(value)}
         />
         <Input
           text="Senha"
+          placeholder="Digite a senha"
           keyboardType="default"
           secureTextEntry
           value={password}

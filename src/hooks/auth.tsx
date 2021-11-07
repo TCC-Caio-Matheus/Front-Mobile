@@ -8,6 +8,7 @@ import React, {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useApolloClient } from '@apollo/client';
 import { AUTHENTICATE } from '../graphql/mutation';
+import { STORES } from '../graphql/query';
 
 interface AuthState {
   token: string | null;
@@ -24,6 +25,7 @@ interface AuthContextData {
   loading: boolean;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
+  store: any;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -32,7 +34,27 @@ const AuthProvider: React.FC = ({ children }) => {
   const client = useApolloClient();
 
   const [data, setData] = useState<AuthState>({} as AuthState);
+  const [store, setStore] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const gerStores = useCallback(async user => {
+    try {
+      const { data: dataStores } = await client.query({
+        query: STORES,
+        variables: {
+          where: {
+            user: user?.id,
+          },
+        },
+      });
+
+      if (dataStores.stores.length > 0) {
+        setStore(dataStores.stores[0]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   useEffect(() => {
     async function loadStorageData(): Promise<void> {
@@ -43,6 +65,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
       if (token[1] && user[1]) {
         setData({ token: token[1], user: JSON.parse(user[1] || '') });
+        await gerStores(JSON.parse(user[1] || ''));
       }
 
       setLoading(false);
@@ -86,6 +109,7 @@ const AuthProvider: React.FC = ({ children }) => {
         loading,
         signIn,
         signOut,
+        store,
       }}
     >
       {children}

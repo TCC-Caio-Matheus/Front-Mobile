@@ -3,4 +3,6 @@ export { default as CardSelect } from './CardSelect';
 export { default as Loading } from './Loading';
 export { default as NavBar } from './NavBar';
 export { default as SingleQuestion } from './SingleQuestion';
+export { default as MultipleQuestion } from './MultipleQuestion';
 export { default as Button } from './Button';
+export { default as CommentCard } from './CommentCard';

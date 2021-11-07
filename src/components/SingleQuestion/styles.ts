@@ -5,7 +5,7 @@ import metrics from '../../utils/metrics';
 export const Container = styled.View`
   width: 100%;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-top: 20px;
   flex: 1;
 `;

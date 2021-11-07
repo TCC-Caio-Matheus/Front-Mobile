@@ -1,6 +1,12 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Home, CreateStore, ListQuestions, AnswerQuestion } from '../pages';
+import {
+  Home,
+  CreateStore,
+  ListQuestions,
+  AnswerQuestion,
+  Evaluetion,
+} from '../pages';
 
 const Auth = createNativeStackNavigator();
 
@@ -16,6 +22,7 @@ const AuthRoutes: React.FC = () => {
       <Auth.Screen name="CreateStore" component={CreateStore} />
       <Auth.Screen name="ListQuestions" component={ListQuestions} />
       <Auth.Screen name="AnswerQuestion" component={AnswerQuestion} />
+      <Auth.Screen name="Evaluetion" component={Evaluetion} />
     </Auth.Navigator>
   );
 };
