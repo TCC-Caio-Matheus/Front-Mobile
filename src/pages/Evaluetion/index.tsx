@@ -17,7 +17,7 @@ type ParamList = {
 };
 
 const Evaluetion: React.FC = () => {
-  const { signOut, user } = useAuth();
+  const { signOut, user, store } = useAuth();
   const navigation = useNavigation();
   const client = useApolloClient();
   const [loading, setLoading] = useState(false);
@@ -47,7 +47,7 @@ const Evaluetion: React.FC = () => {
             id,
           },
           whereStore: {
-            store: 1,
+            store: store?.id,
           },
         },
       });
@@ -62,7 +62,7 @@ const Evaluetion: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }, [user, id]);
+  }, [user, id, store]);
 
   useEffect(() => {
     getAnswer();

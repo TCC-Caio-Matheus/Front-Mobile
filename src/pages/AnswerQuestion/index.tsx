@@ -30,7 +30,7 @@ type ParamList = {
 };
 
 const ListQuestions: React.FC = () => {
-  const { signOut, user } = useAuth();
+  const { signOut, user, store } = useAuth();
   const navigation = useNavigation();
   const client = useApolloClient();
   const [loading, setLoading] = useState(false);
@@ -73,7 +73,7 @@ const ListQuestions: React.FC = () => {
         variables: {
           input: {
             data: {
-              store: 1,
+              store: store?.id,
               question_options: answer,
               question: question?.id,
               quiz: question?.quiz.id,
@@ -87,7 +87,7 @@ const ListQuestions: React.FC = () => {
     } finally {
       setLoadingAnswer(false);
     }
-  }, [question, answer]);
+  }, [question, answer, store]);
 
   return (
     <Container>
