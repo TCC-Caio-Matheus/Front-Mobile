@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setContext } from '@apollo/client/link/context';
 
 const httpLink = new HttpLink({
-  uri: `https://strapi-bakckend-tcc.herokuapp.com/graphql`,
+  uri: `http://localhost:1337/graphql`,
 });
 
 const cache = new InMemoryCache();

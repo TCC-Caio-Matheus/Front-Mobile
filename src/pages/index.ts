@@ -5,3 +5,4 @@ export { default as CreateStore } from './CreateStore';
 export { default as ListQuestions } from './ListQuestions';
 export { default as AnswerQuestion } from './AnswerQuestion';
 export { default as Evaluetion } from './Evaluetion';
+export { default as CommentEvaluetion } from './CommentEvaluetion';

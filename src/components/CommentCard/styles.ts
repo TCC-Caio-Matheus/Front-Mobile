@@ -36,4 +36,14 @@ export const Comment = styled.Text`
   font-family: ${({ theme }) => theme.fonts.semiBold};
   font-size: ${RFValue(11)}px;
   color: ${({ theme }) => theme.colors.secondary};
+  margin-bottom: 7px;
 `;
+export const EvaluetionComment = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.semiBold};
+  font-size: ${RFValue(9)}px;
+  color: gray;
+`;
+
+export const Touchable = styled.TouchableOpacity.attrs({
+  activeOpacity: 0.7,
+})``;

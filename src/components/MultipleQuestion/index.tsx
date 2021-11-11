@@ -22,7 +22,7 @@ const MultipleQuestion: React.FC<MultipleQuestionProps> = ({
 }) => {
   const addOption = useCallback(
     item => {
-      setAnswer(prevState => [...prevState, item]);
+      setAnswer([item]);
     },
     [answer],
   );

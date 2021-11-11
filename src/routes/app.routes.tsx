@@ -6,6 +6,7 @@ import {
   ListQuestions,
   AnswerQuestion,
   Evaluetion,
+  CommentEvaluetion,
 } from '../pages';
 
 const Auth = createNativeStackNavigator();
@@ -23,6 +24,7 @@ const AuthRoutes: React.FC = () => {
       <Auth.Screen name="ListQuestions" component={ListQuestions} />
       <Auth.Screen name="AnswerQuestion" component={AnswerQuestion} />
       <Auth.Screen name="Evaluetion" component={Evaluetion} />
+      <Auth.Screen name="CommentEvaluetion" component={CommentEvaluetion} />
     </Auth.Navigator>
   );
 };

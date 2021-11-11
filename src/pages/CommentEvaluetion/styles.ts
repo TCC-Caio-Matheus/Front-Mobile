@@ -21,7 +21,7 @@ export const Content = styled.ScrollView.attrs({
     paddingBottom: 20,
   },
 })`
-  padding: 0px 20px;
+  padding: 20px;
   width: 100%;
 `;
 
