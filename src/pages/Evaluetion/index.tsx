@@ -8,16 +8,19 @@ import {
 } from '@react-navigation/native';
 import { useApolloClient } from '@apollo/client';
 import sumBy from 'lodash/sumBy';
+import StarRating from 'react-native-star-rating';
 import { Loading, NavBar, CommentCard, CommentInput } from '../../components';
 import { useAuth } from '../../hooks/auth';
 import { QUESTION_ANSWER } from '../../graphql/query';
 import { CREATE_COMMENT } from '../../graphql/mutation';
+
 import {
   Container,
   Content,
   Title,
   TitleTip,
   SuggestContainer,
+  RateContainer,
 } from './styles';
 
 type ParamList = {
@@ -36,6 +39,7 @@ const Evaluetion: React.FC = () => {
   const [question, setQuestion] = useState(null);
   const [suggestions, setSuggestions] = useState([]);
   const [comment, setComment] = useState('');
+  const [rate, setRate] = useState(0);
 
   const {
     params: { id },
@@ -126,6 +130,17 @@ const Evaluetion: React.FC = () => {
                 <SuggestContainer>
                   <TitleTip>{suggestions[0]?.description}</TitleTip>
                 </SuggestContainer>
+
+                {/* <RateContainer>
+                  <StarRating
+                    rating={rate}
+                    starSize={25}
+                    emptyStarColor="#aeaeae"
+                    fullStarColor="#ff6739"
+                    selectedStar={setRate}
+                    disabled
+                  />
+                </RateContainer> */}
 
                 {!!suggestions[0].evaluations.length && (
                   <Title>Comentários</Title>

@@ -40,3 +40,9 @@ export const TitleTip = styled.Text`
   align-self: flex-start;
   margin: 10px 0px;
 `;
+
+export const RateContainer = styled.View`
+  margin: 10px 30px;
+  width: 60%;
+  align-self: center;
+`;
