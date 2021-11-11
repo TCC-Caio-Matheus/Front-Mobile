@@ -9,6 +9,12 @@ export const QUIZZES = gql`
         id
         title
       }
+      answers {
+        id
+        question {
+          id
+        }
+      }
     }
   }
 `;
@@ -85,6 +91,7 @@ export const QUESTION_ANSWER = gql`
         }
       }
       suggestions {
+        id
         description
         range_min
         range_max
@@ -106,6 +113,31 @@ export const QUESTION_ANSWER = gql`
                 url
               }
             }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const EVALUATIONS = gql`
+  query ($id: ID!) {
+    evaluation(id: $id) {
+      id
+      description
+      user {
+        username
+        avatar {
+          url
+        }
+      }
+      evaluations {
+        id
+        description
+        user {
+          username
+          avatar {
+            url
           }
         }
       }

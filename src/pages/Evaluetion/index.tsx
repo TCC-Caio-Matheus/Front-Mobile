@@ -1,13 +1,27 @@
 import React, { useEffect, useCallback, useState } from 'react';
 
-import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
+import {
+  useNavigation,
+  useRoute,
+  RouteProp,
+  useFocusEffect,
+} from '@react-navigation/native';
 import { useApolloClient } from '@apollo/client';
 import sumBy from 'lodash/sumBy';
-import { Loading, NavBar, CommentCard } from '../../components';
+import StarRating from 'react-native-star-rating';
+import { Loading, NavBar, CommentCard, CommentInput } from '../../components';
 import { useAuth } from '../../hooks/auth';
 import { QUESTION_ANSWER } from '../../graphql/query';
-import { CREATE_ANSWER } from '../../graphql/mutation';
-import { Container, Content, Title, TitleTip } from './styles';
+import { CREATE_COMMENT } from '../../graphql/mutation';
+
+import {
+  Container,
+  Content,
+  Title,
+  TitleTip,
+  SuggestContainer,
+  RateContainer,
+} from './styles';
 
 type ParamList = {
   Evaluetion: {
@@ -21,8 +35,11 @@ const Evaluetion: React.FC = () => {
   const navigation = useNavigation();
   const client = useApolloClient();
   const [loading, setLoading] = useState(false);
+  const [loadingComment, setLoadingComment] = useState(false);
   const [question, setQuestion] = useState(null);
   const [suggestions, setSuggestions] = useState([]);
+  const [comment, setComment] = useState('');
+  const [rate, setRate] = useState(0);
 
   const {
     params: { id },
@@ -64,9 +81,39 @@ const Evaluetion: React.FC = () => {
     }
   }, [user, id, store]);
 
-  useEffect(() => {
+  const getAnswers = useCallback(() => {
     getAnswer();
   }, [id]);
+
+  useFocusEffect(getAnswers);
+
+  const handleComment = useCallback(
+    async suggestionId => {
+      try {
+        setLoadingComment(true);
+        await client.mutate({
+          mutation: CREATE_COMMENT,
+          fetchPolicy: 'no-cache',
+          variables: {
+            input: {
+              data: {
+                description: comment,
+                suggestion: suggestionId,
+                user: user?.id,
+              },
+            },
+          },
+        });
+        setComment('');
+        getAnswer();
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoadingComment(false);
+      }
+    },
+    [comment, user],
+  );
 
   return (
     <Container>
@@ -74,20 +121,51 @@ const Evaluetion: React.FC = () => {
       {loading && <Loading />}
 
       {!loading && (
-        <Content>
-          {!!question && (
-            <>
-              {/* <Title>Pergunta: {question?.title}</Title> */}
-              <Title>Dica de melhoria:</Title>
-              <TitleTip>{suggestions[0]?.description}</TitleTip>
-              <Title>Comentários</Title>
+        <>
+          <Content>
+            {!!question && (
+              <>
+                {/* <Title>Pergunta: {question?.title}</Title> */}
+                <Title>Dica de melhoria:</Title>
+                <SuggestContainer>
+                  <TitleTip>{suggestions[0]?.description}</TitleTip>
+                </SuggestContainer>
 
-              {suggestions[0]?.evaluations?.map(item => (
-                <CommentCard key={item.id} comment={item} />
-              ))}
-            </>
-          )}
-        </Content>
+                {/* <RateContainer>
+                  <StarRating
+                    rating={rate}
+                    starSize={25}
+                    emptyStarColor="#aeaeae"
+                    fullStarColor="#ff6739"
+                    selectedStar={setRate}
+                    disabled
+                  />
+                </RateContainer> */}
+
+                {!!suggestions[0].evaluations.length && (
+                  <Title>Comentários</Title>
+                )}
+
+                {suggestions[0]?.evaluations?.map(item => (
+                  <CommentCard
+                    key={item.id}
+                    comment={item}
+                    onPress={() =>
+                      navigation.navigate('CommentEvaluetion', { id: item?.id })
+                    }
+                  />
+                ))}
+              </>
+            )}
+          </Content>
+
+          <CommentInput
+            onChangeText={setComment}
+            value={comment}
+            handleComment={() => handleComment(suggestions[0]?.id)}
+            loading={loadingComment}
+          />
+        </>
       )}
     </Container>
   );

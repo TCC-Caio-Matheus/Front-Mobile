@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useApolloClient } from '@apollo/client';
 import { PieChart } from 'react-native-chart-kit';
-import { useTheme } from 'styled-components';
+import sum from 'lodash/sum';
+import { useFocusEffect } from '@react-navigation/native';
 import Button from '../../components/Button';
 import { CardSelect, Loading, NavBar } from '../../components';
 import metrics from '../../utils/metrics';
@@ -10,27 +11,27 @@ import { QUIZZES } from '../../graphql/query';
 import { Container, ButtonsView, Icon, Content, Title } from './styles';
 
 const Login: React.FC = ({ navigation }) => {
-  const { signOut, user, store } = useAuth();
+  const { user, store } = useAuth();
   const client = useApolloClient();
   const [quizzes, setQuizzes] = useState([]);
   const [loading, setLoading] = useState(false);
-  const theme = useTheme();
+  const [answered, setAnswered] = useState(0);
+  const [notAnswered, setNotAnswered] = useState(0);
+
   const getQuizzes = useCallback(async () => {
     try {
       setLoading(true);
       const { data } = await client.query({
         query: QUIZZES,
         fetchPolicy: 'no-cache',
-        // variables: {
-        //   where: {
-        //     stores: {
-        //       id: store?.id,
-        //     },
-        //   },
-        // },
       });
 
       setQuizzes(data.quizzes);
+      setAnswered(sum(data.quizzes.map(item => item.answers.length)));
+      setNotAnswered(
+        sum(data.quizzes.map(item => item.questions.length)) -
+          sum(data.quizzes.map(item => item.answers.length)),
+      );
     } catch (error) {
       console.log(error);
     } finally {
@@ -38,21 +39,23 @@ const Login: React.FC = ({ navigation }) => {
     }
   }, [user, store]);
 
-  useEffect(() => {
+  const getQuizze = useCallback(() => {
     getQuizzes();
   }, []);
+
+  useFocusEffect(getQuizze);
 
   const data = [
     {
       name: 'Respondidas',
-      population: 100,
+      population: answered,
       color: `rgba(137, 166, 126, 1)`,
       legendFontColor: '#7F7F7F',
       legendFontSize: 12,
     },
     {
       name: 'Não-Resp.',
-      population: 10,
+      population: notAnswered,
       color: `rgba(137, 166, 126, 0.2)`,
       legendFontColor: '#7F7F7F',
       legendFontSize: 12,

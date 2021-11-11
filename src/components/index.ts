@@ -6,3 +6,4 @@ export { default as SingleQuestion } from './SingleQuestion';
 export { default as MultipleQuestion } from './MultipleQuestion';
 export { default as Button } from './Button';
 export { default as CommentCard } from './CommentCard';
+export { default as CommentInput } from './CommentInput';

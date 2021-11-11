@@ -21,7 +21,7 @@ export const Content = styled.ScrollView.attrs({
     paddingBottom: 20,
   },
 })`
-  padding: 0px 20px;
+  padding: 20px;
   width: 100%;
 `;
 
@@ -39,10 +39,4 @@ export const TitleTip = styled.Text`
   color: ${({ theme }) => theme.colors.secondary};
   align-self: flex-start;
   margin: 10px 0px;
-`;
-
-export const RateContainer = styled.View`
-  margin: 10px 30px;
-  width: 60%;
-  align-self: center;
 `;

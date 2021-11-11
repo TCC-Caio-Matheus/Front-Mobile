@@ -39,3 +39,13 @@ export const CREATE_ANSWER = gql`
     }
   }
 `;
+
+export const CREATE_COMMENT = gql`
+  mutation ($input: createEvaluationInput) {
+    createEvaluation(input: $input) {
+      evaluation {
+        description
+      }
+    }
+  }
+`;
